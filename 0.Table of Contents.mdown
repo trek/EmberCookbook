@@ -1,0 +1,6 @@
+## 0 Meta Recipes
+  1. Understanding the Cookbook Format
+  1. Participating If You Know Ember
+  1. Participating If You Don't Know Ember
+  1. Deciding If A Recipe is a Good Fit
+  1. Suggesting A Recipe
