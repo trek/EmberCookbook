@@ -1,0 +1,71 @@
+# Creating Re-usable UI Components
+## Problem
+You are developing a web app where a jQuery UI plugin or some other more sophisticated UI element is needed in multiple views. 
+
+## Solution
+Extend an `Ember.View` object and initialize the jQuery UI Plugin in the `didInsertElement` method. Use the `Ember.Evented` mixin  (requires Ember 0.9.8+) to fire events on specific UI actions.
+
+## Discussion
+
+The following is an example of a textfield with autocomplete:
+
+	var autoComplete = Ember.TextField.extend(Ember.Evented, {
+		source: null,
+		classNames: ['autocomplete'],
+		didInsertElement: function() {
+			var el = $(this.$()[0]),
+				url = this.source,
+				self = this;
+			el.autocomplete({
+				source: function(request, response){
+					var args = {};
+					args[self.name] =  request.term;
+					$.ajax({url:url,
+							data:args,
+							type:'POST',
+							success:function(data){
+								response(data);
+							}
+					});
+				},
+				select: function(event, ui) {
+					el.val(ui.item.value);
+					self.fire('autoCompleted', ui.item.value);
+					el.val('');
+					return false;
+				}
+			});
+		},
+		keyUp: function(e){
+			var code = (e.keyCode ? e.keyCode : e.which);
+			if (code == 13) {
+				this.getValue();
+			}
+			return false;
+		},
+		getValue: function() {
+			var el = $(this.$()[0]);
+			if (el.val().length >= 3) {
+				this.fire('autoCompleted', el.val());
+			}
+		},
+		empty: function() {
+			$(this.$()[0]).val('');
+		}
+	});
+
+
+The example extends an `Ember.Textfield` object and adds the jQuery UI [autocopmlete](http://jqueryui.com/demos/autocomplete/) functionality to it. 
+
+First we need to get the DOM element of the textfield by calling `$(this.$()[0])` so we can bind the autocomplete widget to the text field.
+
+An `Ember.Evented` mixin is used to fire events when the enter key is pressed or a selection occurs from the autocomplete dropdown list. 
+
+		var autoCompleteController = Ember.Object.create({
+			autoCompleted: function(val) {
+				//Do Something
+			}
+		});
+		var searchField = autoComplete.create({source:'http://thedatasourceurl'});
+		searchField.on('autoCompleted', autoCompleteController, 'autoCompleted');
+
