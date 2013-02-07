@@ -7,12 +7,11 @@ You convert the built-in content array to a normal JavaScript array, then revers
 
 You need to extend Ember's ArrayController, because Ember.Object.create no longer supports defining computed properties, e.g.:
 
-```
+```javascript
 App.myArrayController = Ember.ArrayController.extend({
 	reverse: function(){
 		return this.toArray().reverse();
 	}.property('@each')
 })
-    
 ```
 ## Discussion
