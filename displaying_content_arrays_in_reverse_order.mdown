@@ -5,4 +5,14 @@ You want to display an Ember content array from an ArrayController in descending
 ## Solution
 You convert the built-in content array to a normal JavaScript array, then reverse it. You use Ember's @each property to mirror the reverse change to the content array.
 
+You need to extend Ember's ArrayController, because Ember.Object.create no longer supports defining computed properties, e.g.:
+
+```
+App.myArrayController = Ember.ArrayController.extend({
+	reverse: function(){
+		return this.toArray().reverse();
+	}.property('@each')
+})
+    
+```
 ## Discussion
