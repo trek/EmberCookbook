@@ -1,0 +1,5 @@
+# Retrieving Nested Resources
+## Problem
+When creating a application with nested routes and resources you want to be able to list all of the child elements for a resource.
+
+For instance an `order` might have a dedicated route for viewing all of its child `orderItems` at a route such as `order/3/orderItems`.
