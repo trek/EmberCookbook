@@ -1,0 +1,303 @@
+# Advanced RESTful API Using JSPONAPI Standard
+
+## Problem
+Build a relatively non trivial RESTful API example and use conventional Ember Data semantics and models to communicate with backend API. The backend will follow jsonapi.org best practices. 
+
+By `relatively non trivial` we mean that our example has several models with several types of relationships expressed in it. 
+
+- Has One, 
+- Has Many, 
+- Has and Belongs To Many, 
+- etc. 
+
+This example will be more advanced than the basic blog, posts, and comments example found in most tutorials. This cookbook will demonstrate how to build conventional API. Through this example you will learn how models are modelled on the client and on the server, and well as the JSON communication mechanism that ties them together.
+
+This is an ambitious cookbook example but through this we will demonstrate how through best practices a single Ember JS application can communicate with a variety of API backends using a variety of backend technologies and programming languages.
+
+*Experience Level:* 
+
+Intermediate to Advanced    
+
+## Solution
+Demonstrate common API in a handful of popular server side technologies. 
+
+Implement a single Ember JS client example that can talk to any one of these API interfaces.
+
+The API can be implemented in a variety of server side technologies. This cookbook will provide canonical references to the server side API source code. Please view the API source projects documentation for implementation details. This cookbook will focus on the necessary EmberJS and Ember Data implementation required to communicate with backend.
+
+See discussion section for more info on the server side API.
+
+
+## Discussion
+
+The value of this cookbook example is to demonstrate how your Ember application can continue to work relatively unchanged, even as you change the server side backend technology or implementation details. This cookbook will demonstrate the best practices and common patterns around a conventional RESTful API and how to adhere to the specifications outlined on the JSONAPI specification.
+
+http://www.jsonapi.org
+
+A frontend web developer using Ember JS should not have have to be too concerned about the specific implementation details of the backend API. Assuming the developers working on the frontend and backend can agree on some conventions around JSON and the semantics of the API, then a well written Ember JS application will continue to work even as the server side technology changes.
+
+In order to demonstrate the viability of this abstraction we are going to implement a common API in a handful of server side technologies. While the focus of this cookbook is to provide details about how to implement your Ember JS application, we have provided links to documentation and examples the server side code. Understand how both of these pieces work together is important. Ember JS makes no assumption about what server side technology you should use. If doesn't matter what your server side code technology preference is Ruby/Rails, Node, Java, PHP, Perl, or even C++/C. If your API can speak a conventional form of JSON then your backend can work with Ember JS. The web is built on Javascript and JSON is one of the leading ways to share data between a server and client. This cookbook will help you understand how the architectural pieces fit together, with a share common API example.
+
+The server side APIs can be written written in a veriety of frameworks and programming languages. The common architecture is JSON and a handful of conventions on how to present this JSON to the client application.
+
+Below is a list of common and popular technologies in which to implement the common API in. Please check back regularly because the list of server side implementations may have expanded 
+
+### API Backend Details
+
+#### Common API Specification
+
+*TBD* LINK TO SPECIFICATION DOCUMENT
+
+This document contains a basic human readable specification and outline of the models and relationships to be used in the canonical API example project. There can be many specific implementations of this API, but all implementations must adhere to a few basic requirements:
+
+1.) Implement a RESTful HTTP interface
+2.) Provide conventional JSON interface to consumers of API
+3.) Implement all methods specified in this specification document.
+4.) High level API semantics should be described in this document so API implements can define testing.
+
+In the API specification document you will find a basic description of the problem domain and the data we are attempting to model. We will provide concrete examples of the data as well as abstract definitions of the stuctures of the models themselves as well as their relationships to other models in the system.
+
+There are two primary audiences of this specification:
+
+1.) Implementors of the API, who use this specification to guide their development of the example API.
+
+2.) Developers learning how to use Ember. The API specification is a good place to start understanding how the API example works and what's requirements are.
+ 
+
+#### Basic JSON Fixtures using FIXTURE Adapter
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Use Fixture Adapter and static JSON  
+
+##### Rationale
+When developing an Ember JS example it is very useful to start developing with a Fxiture or static respresentation of some data. This fixture data becomes a mockup that allows you to prototype an application without having to worry about setting up a server backend or database. 
+
+A fixture adapter is the fastest to see in your application. You can implement a fixture without ever having to communicate with a server backend. 
+
+The fixture adapter is very useful when you want to mockup or prototype your application quickly
+
+
+#### Basic Read Only JSON Fixtures using Simple HTTP 
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Use Python SimpleHTTP to provide HTTP server
+- Provide visible and easy to edit Hash data structures
+- For save and delete operations (PUT, DELETE) provide successful status message but do not save or delete read.
+
+##### Rationale
+When developing an Ember JS example it is very useful to start developing with a Fixture or static respresentation of some data. This fixture data becomes a mockup that allows you to prototype an application without having to worry about setting up a server backend or database. 
+
+Because this cookbook wants to demonstrate RESTful server/client communication we need to simulate what it means to talk to a server over HTTP. Fixture adapter built into Ember is not suitable for this task.
+
+Instead we are going to implement a very basic webserver using the Python Simple HTTP module. There is no database in the backend. All the data in the system will be what you can see in the source in very easy to read and modify JSON hashes. You can look at and modify the server side data and see how it effects your Ember JS application. This is very similar to the Fixture adapter example but the data will be served over HTTP.  
+
+For more information see
+
+http://docs.python.org/2/library/simplehttpserver.html
+
+`python -m SimpleHTTPServer 8000`
+
+
+
+#### Ruby/Rails-API API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using Rails-API
+- Use SQLite Database
+- Demonstrate use of Active Model Serializers to create conventional JSON interface 
+
+##### Rationale
+RailsAPI is a subset of the popular Ruby on Rails framework. With RailsAPI you get much of the conveniences of Rails such as ActiveModel and ActiveRecord. However since Rails API is only concerned with generating API interfaces it can remove some features of Rails that are reponsible for generating views and HTML. 
+
+For more information see
+
+https://github.com/rails-api/rails-api  
+
+#### Ruby/Rails API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using Ruby on Rails
+- Use SQLite Database
+- Demonstrate use of Active Model Serializers to create conventional JSON interface 
+
+##### Rationale
+Ruby on Rails is a very popular web development framework, which uses the Ruby Programming language. Rails applications are noted for their ease of development because of a strong preference for convention over configuration. This means that the framework adheres to common and well established conventions to solve many of the underlying technical requirements of a fully featured web application. By following the conventions a lot of code and implementation is already baked in, leaving you to focus on higher level abstractions in your application. 
+
+For more information see 
+
+https://github.com/rails/rails
+
+#### Ruby/Sinatra API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using Sinatra
+- Use SQLite Database
+- Demonstrate how to create conventional JSON interface 
+
+##### Rationale
+Sinatra is a DSL (Somain Specific Language) for quickly creating web applications in Ruby with minimal effort. With Sinatra you are free to implement a very lightweigth minimalist backend. Because of it is minimalist approach Sinata is a popular choice for building API backends using the Ruby programming language.
+
+For more information see 
+https://github.com/sinatra/sinatra
+
+#### Node JS API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using Node JS
+- Use SQLite Database
+- Demonstrate how to create conventional JSON interface 
+
+##### Rationale
+Node JS is a popular platform that allows you to run Javascript on the server side. Node JS is popular in the web development world because it allows common use of javascript on both the frontend and backend.
+
+For more information see 
+
+https://github.com/joyent/node
+
+#### PHP/Symfony API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using PHP 
+- Use SQLite Database
+- Demonstrate how to create conventional JSON interface 
+
+##### Rationale
+PHP Symfony is a popular MVC web development framework using the PHP programming language. 
+
+For more information see 
+
+https://github.com/symfony/symfony
+
+
+#### Java API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using Java 
+- Demonstrate how to create conventional JSON interface 
+
+##### Rationale
+Java is a web established Object Oriented Programming language. It has a well established history as useful technology on the server. 
+
+For more information see 
+
+
+#### Python/Django API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using Python/Django
+- Demonstrate how to create conventional JSON interface 
+
+##### Rationale
+Django is a Popular web framework written in Python. Django shares a lot of similarities with Rails and was created around the same time Rails was created. Python is a popular scripting language similar to Ruby. Python is known for its readable source code and clean style due to whitespace syntax.
+
+For more information see 
+
+https://github.com/django/django
+
+
+#### Google App Engine API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend that can easily be deployed to Google APP Engine
+- Demonstrate how to create conventional JSON interface 
+
+##### Rationale
+Google App Engine is a popular application hosting framework that let's you deploy applications using Google's backend server infrastructure. Google App Engine, supports applications written in Java, Python, Go and PHP.
+
+Google App Engine supports a schemaless object datastore providing robust, scalable storage for your web application, a rich data modeling API, and a SQL-like query language called GQL.
+
+For more information see 
+
+https://developers.google.com/appengine/
+
+#### Perl/Mason API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using Perl and Mason 
+- Demonstrate how to create conventional JSON interface 
+
+##### Rationale
+Perl is a very established scripting programming language that was written by Larry Wall in the 1980s. Perl was one the first programming languages to popularize server side web programming through CGI (Common Gateway Interface). Because of it long history, there are a lot of legacy applications and systems built upon perl. Understanding how Ember JS can work with Perl, may be helpful to some application usage patterns.
+
+http://www.perl.org
+
+For more information see 
+
+http://www.perl.org
+http://www.masonhq.com
+ 
+#### C/C++ API Implementation
+
+##### Project Source:
+
+*TBD* LINK TO GITHUB PROJECT API EXAMPLE
+
+##### Overview:
+- Build API backend using C or C++ 
+- Demonstrate how to create conventional JSON interface 
+- Build highly portable code example that could fast and efficient to use.
+
+##### Rationale
+C is one of the most popular programming languages in the world. It is closely aligned with the history of UNIX operating system. C and it more modern Object Oriented variant C++, is used whenever performance, and high portability is required. C code can be compiled to a variety of CPU architectures including X86 found in modern desktop computers as well as embedded architectures such as ARM or Intel ATOM process. In addition there are Power PC, and lots of architectures.
+
+If you have software that must run on specific hardware then using C or C++ is an effective way to achieve portability.
+
+Ember JS could find use in Embbedded hardware applications that need to present a user interface using HTML and Javascript. By using C you can easily port this application logic to an embedded system like Raspberry Pi, for example.  
+
+For more information see 
+
+http://en.wikipedia.org/wiki/C_(programming_language)
+
+http://en.wikipedia.org/wiki/C%2B%2B  
+
+
+
+
+
+
+ 
+      
