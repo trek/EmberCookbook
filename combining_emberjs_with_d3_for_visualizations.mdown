@@ -1,0 +1,9 @@
+# Combining Ember.js With D3 for Visualizations
+
+## Problem
+You want to have rich visualizations as part of an Ember application.
+
+## Solution
+Delegate complex visualizations to a dedicated visualization library like d3.js
+
+## Discussion 
