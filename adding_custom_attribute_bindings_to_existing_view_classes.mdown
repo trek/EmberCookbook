@@ -1,0 +1,9 @@
+# Adding Custom `attributeBindings` to Existing View Classes
+
+## Problem
+You want to use an attribute binding that is missing on an existing Ember.View class having to subclass the view.
+
+## Solution
+Reopen the class with `reopen` and append the HTML attribute name you would like to expose through bindings
+
+## Discussion
