@@ -1,0 +1,9 @@
+# Transforming Synchronized Data
+
+## Problem
+You're synchronizing the properties of two objects using bindings but the value for the properties are not intended to be identical.
+
+## Solution
+Create a custom Binding object and apply a transform function to one or both sides of the synchronization.
+
+## Discussion
