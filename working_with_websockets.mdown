@@ -1,0 +1,9 @@
+# Working with Websockets
+
+## Problem
+You want to load data into an Ember application via websockets
+
+## Solution
+Open a socket connection when you Application is `ready` and provide a callback that sets data on Ember objects when new data is received. 
+
+## Discussion
